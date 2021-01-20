@@ -6,11 +6,9 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class ImageProxyTestDrive {
-    ImageComponent imageComponent;
-    JFrame jFrame = new JFrame("CD cover Viewer");
-    JMenuBar menuBar;
-    JMenu menu;
-    Hashtable<String, String> cds = new Hashtable<>();
+    private ImageComponent imageComponent;
+    private JFrame jFrame = new JFrame("CD cover Viewer");
+    private Hashtable<String, String> cds = new Hashtable<>();
 
     public static void main(String[] args) throws Exception {
         ImageProxyTestDrive imageProxyTestDrive = new ImageProxyTestDrive();
@@ -23,9 +21,10 @@ public class ImageProxyTestDrive {
         cds.put("MCMXC A.D.", "http://images.amazon.com/images/P/B000002URV.01.LZZZZZZZ.jpg");
         cds.put("Northern Exposure", "http://images.amazon.com/images/P/B000003SFN.01.ZZZZZZZ.jpg");
         cds.put("Selected Ambient Works, Vol. 2", "http://images.amazon.com/images/P/B000002MNZ.01.LZZZZZZZ.jpg");
-        URL initialURL = new URL((String) cds.get("Selected Ambient Works, Vol. 2"));
-        menuBar = new JMenuBar();
-        menu = new JMenu("Favourite CD's");
+
+        URL initialURL = new URL(cds.get("Buddha Bar"));
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("Favourite CD's");
         menuBar.add(menu);
         jFrame.setJMenuBar(menuBar);
         for (Enumeration e = cds.keys(); e.hasMoreElements(); ) {
@@ -39,14 +38,14 @@ public class ImageProxyTestDrive {
         }
         Icon icon = new ImageProxy(initialURL);
         imageComponent = new ImageComponent(icon);
-        jFrame.getContentPane();
+        jFrame.getContentPane().add(imageComponent);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setSize(800, 600);
         jFrame.setVisible(true);
     }
     URL getCDUrl(String name){
         try {
-            return new URL((String)cds.get(name));
+            return new URL(cds.get(name));
         }catch (MalformedURLException e){
             e.printStackTrace();
             return  null;

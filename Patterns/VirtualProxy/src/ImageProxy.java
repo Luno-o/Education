@@ -3,12 +3,11 @@ import java.awt.*;
 import java.net.URL;
 
 public class ImageProxy implements Icon {
-    volatile ImageIcon imageIcon;
-    final URL imageURL;
-    Thread retrievalThread;
-    boolean retrieving = false;
+    private volatile ImageIcon imageIcon;
+    private final URL imageURL;
+    private boolean retrieving = false;
 
-    public ImageProxy(URL imageURL) {
+    ImageProxy(URL imageURL) {
         this.imageURL = imageURL;
     }
 
@@ -20,15 +19,12 @@ public class ImageProxy implements Icon {
             g.drawString("Loading CD cover... please wait", x + 300, y + 190);
             if (!retrieving) {
                 retrieving = true;
-                retrievalThread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            setImageIcon(new ImageIcon(imageURL, "CD cover"));
-                            c.repaint();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                Thread retrievalThread = new Thread(() -> {
+                    try {
+                        setImageIcon(new ImageIcon(imageURL, "CD cover"));
+                        c.repaint();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
                 retrievalThread.start();
