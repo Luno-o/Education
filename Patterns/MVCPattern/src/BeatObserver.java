@@ -1,0 +1,3 @@
+interface BeatObserver {
+    void updateBeat();
+}
