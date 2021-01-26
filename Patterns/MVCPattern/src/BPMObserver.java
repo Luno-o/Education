@@ -1,3 +1,3 @@
 public interface BPMObserver {
-   void updateBPM();
+    void updateBPM();
 }

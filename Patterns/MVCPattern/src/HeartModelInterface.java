@@ -1,13 +1,5 @@
-public interface BeatModelInterface {
-    void initialize();
-
-    void on();
-
-    void off();
-
-    void setBPM(int bpm);
-
-    int getBPM();
+public interface HeartModelInterface {
+    int getHeartRate();
 
     void registerObserver(BeatObserver o);
 
